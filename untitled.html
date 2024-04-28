@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .continue-watching-anime-list {
+      position: relative;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      padding: 0; /* Removendo padding */
+    }
+
+    .continue-watching-anime-item {
+      margin-right: 20px; /* Espaçamento entre os itens */
+    }
+
+    .continue-watching-cover {
+      position: relative;
+      width: 250px;
+      height: 140px;
+      border-radius: 10px;
+      overflow: hidden;
+      object-fit: cover;
+    }
+
+    .continue-watching-shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('cover-shadow.png');
+      background-size: cover;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    .continue-watching-episode,
+    .continue-watching-anime-name,
+    .continue-watching-duration {
+      font-size: 14px;
+    }
+
+    .continue-watching-episode {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .continue-watching-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-image: url('seu-icone-play.png');
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+      z-index: 2;
+    }
+
+    .continue-watching-anime-name {
+      position: absolute;
+      bottom: 15px;
+      left: 10px;
+      z-index: 2;
+      color: white;
+    }
+
+    .continue-watching-progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(0,0,0,0.544);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .continue-watching-progress {
+      height: 100%;
+      width: 8px;
+      background-color: #6f25b0;
+    }
+
+    .continue-watching-duration {
+      position: absolute;
+      bottom: 15px;
+      right: 10px;
+      z-index: 2;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="continue-watching-anime-list">
+    <!-- Itens serão adicionados aqui via JavaScript -->
+  </ul>
+
+  <script>
+    function populateAnimeList(animes) {
+        var animeList = document.querySelector('.continue-watching-anime-list');
+
+        animes.forEach(function(anime) {
+            if ('nameAnime' in anime && 'posterAnime' in anime && 'nameEpisode' in anime && 'watchingPorcentage' in anime && 'durationMax' in anime && 'id' in anime && 'linkEpWatch' in anime) {
+                var listItem = document.createElement('li');
+                listItem.className = 'continue-watching-anime-item';
+
+                var coverDiv = document.createElement('div');
+                coverDiv.className = 'continue-watching-cover';
+
+                var img = document.createElement('img');
+                img.src = anime.posterAnime;
+                img.alt = `Capa do Anime ${anime.nameAnime}`;
+                img.className = 'continue-watching-cover';
+
+                var shadowDiv = document.createElement('div');
+                shadowDiv.className = 'continue-watching-shadow';
+
+                var episodeDiv = document.createElement('div');
+                episodeDiv.className = 'continue-watching-episode';
+                episodeDiv.textContent = anime.nameEpisode;
+
+                var playIconDiv = document.createElement('div');
+                playIconDiv.className = 'continue-watching-play-icon';
+
+                var animeNameDiv = document.createElement('div');
+                animeNameDiv.className = 'continue-watching-anime-name';
+                animeNameDiv.textContent = anime.nameAnime;
+
+                var progressBarDiv = document.createElement('div');
+                progressBarDiv.className = 'continue-watching-progress-bar';
+
+                var progressDiv = document.createElement('div');
+                progressDiv.className = 'continue-watching-progress';
+                progressDiv.style.width = `${anime.watchingPorcentage}%`;
+
+                var durationDiv = document.createElement('div');
+                durationDiv.className = 'continue-watching-duration';
+                durationDiv.textContent = `${anime.durationMax} min`;
+
+                progressBarDiv.appendChild(progressDiv);
+                coverDiv.appendChild(img);
+                coverDiv.appendChild(shadowDiv);
+                coverDiv.appendChild(episodeDiv);
+                coverDiv.appendChild(playIconDiv);
+                coverDiv.appendChild(animeNameDiv);
+                coverDiv.appendChild(progressBarDiv);
+                coverDiv.appendChild(durationDiv);
+
+                listItem.appendChild(coverDiv);
+                animeList.appendChild(listItem);
+            }
+        });
+    }
+
+    // Emulação de dados JSON
+    const jsonData = [
+      {
+        nameAnime: "Anime 1",
+        posterAnime: "classrom.jpg",
+        nameEpisode: "Episódio 1",
+        watchingPorcentage: 30,
+        durationMax: 25,
+        id: 1,
+        linkEpWatch: "link_episodio_1"
+      },
+      {
+        nameAnime: "Anime 2",
+        posterAnime: "imagem_anime_2.jpg",
+        nameEpisode: "Episódio 2",
+        watchingPorcentage: 50,
+        durationMax: 30,
+        id: 2,
+        linkEpWatch: "link_episodio_2"
+      },
+      // Adicione mais dados conforme necessário
+    ];
+
+    // Preenchendo a lista com dados emulados
+    populateAnimeList(jsonData);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimaRu</title> 
+    
+    <link rel="stylesheet" href="ccss/css.css" type="text/css">
+    
+    <script src="ccss/jjss/js.js"></script>
+
+    
+    <style>
+      
+      body {
+  padding-top: 70px; /* Altura do header */
+}
+
+      
+      @font-face {
+          font-family: 'YourCustomFont';
+          src: url('fonts/AltoneTrial-Regular.woff') format('woff');
+      }
+      
+      @font-face {
+          font-fami
+           ly: 'Nexa-Heavy';
+          src: url('fonts/Nexa-Heavy.woff') format('woff');
+      }
+      
+      h1 {
+          color: #fff;
+          font-family: 'YourCustomFont', sans-serif;
+          font-size: 18px;
+      }
+      
+      h2 {
+          left: 7px;
+          color: #fff;
+          font-family: 'Nexa-Heavy', sans-serif;
+          font-size: 17px;
+      }
+
+    </style>
+    
+    
+    
+</head>
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    
+<header>
+    <div class="logo">
+      <!-- Coloque aqui o código da sua logo -->
+      <img src="logo.png" alt="Logo">
+    </div>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <div class="user-info">
+        <div class="user-image">
+          <!-- Coloque aqui o código da sua imagem -->
+          <img src="gg.jpg" alt="Imagem do Usuário">
+        </div>
+        <div class="user-name">Seu Nome</div>
+      </div>
+      <a href="index.html">Início</a>
+      <a href="search.html">Pesquisar</a>
+      <a href="#">Gêneros</a>
+      <a href="#">Favoritos</a>
+    </nav>
+  </header>
+
+    <h2>Lançamentos</h2>
+    <ul class="anime-list">
+        
+    </ul>
+    
+    <h2>Recém adicionados</h2>
+    <ul class="realese-anime-list">
+      </ul>
+      
+      <h2>Continue assistindo</h2>
+      <ul class="continue-watching-anime-list">
+    <!-- Itens serão adicionados aqui via JavaScript -->
+  </ul>
+      
+      
+      <h2>Top 10 animes</h2>
+    <ul class="top-anime-list">
+      </ul>
+  
+  <h2>Tendências</h2>
+      <ul class="tendence-list">
+        
+    </ul>
+  
+  
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+  const openDialogLink = document.querySelector('.openDialog');
+
+  openDialogLink.addEventListener('click', function() {
+    window.webViewAndroid.openDialogSearchApp();
+  });
+});
+
+    
+  </script>
+  
+</body>
+</html>

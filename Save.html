@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="ccss/css.css"> <!-- Adicione o caminho correto para o seu arquivo CSS -->
+
+  <style>
+    body {
+      padding-top: 115px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      margin-right:80px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 2px solid #fff;
+      background-color: transparent;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .search-input::placeholder {
+      color: #fff;
+      opacity: 0.5;
+    }
+
+    .search-input:not(:placeholder-shown) {
+      color: #ddd; /* Substitua "yourDesiredColor" pela cor desejada quando houver texto */
+    }
+
+    .search-input:focus {
+      outline: none; /* Remove a borda padrão ao clicar no input */
+    }
+
+    /* Adicione esta regra para remover a borda amarela no Chrome */
+    .search-input:-webkit-autofill,
+    .search-input:-webkit-autofill:hover,
+    .search-input:-webkit-autofill:focus,
+    .search-input:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px transparent inset !important;
+    }
+
+    .result-item {
+      position: relative;
+      display: flex;
+      margin: 10px;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 7px;
+      
+      overflow: hidden;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .result-item:hover {
+      background-color: #e0e0e0;
+    }
+
+    .result-image {
+      width: 100px;
+      height: 155px;
+      margin-right: 10px;
+      overflow: hidden;
+      border-radius:6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .result-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .banner-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+      .overlay-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('ic/images/covershadow.png');
+        background-size: cover;
+        z-index: 1;
+      }
+
+    .result-banner {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(90%);
+      filter: blur(2px);
+    }
+
+    .rating-icon {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      z-index: 3;
+    }
+
+    .result-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2;
+      color: #fff;
+    }
+
+    .result-title {
+      margin-top: 0;
+    }
+
+    .result-genre {
+      color: #666;
+    }
+    
+
+.filter-container {
+  margin-bottom: 20px;
+  display: flex;
+  color: #fff;
+  background: #000;
+  align-items: center;
+  position: fixed;
+  top: 75px;
+  left: 5px; 
+  z-index: 999;
+}
+
+.filter-select {
+  padding: 8px;
+  font-size: 16px;
+  margin-right: 10px;
+  border: none; /* Remova a borda se desejar */
+  background-color: transparent; /* Fundo transparente */
+  color: #fff; /* Cor do texto */
+}
+
+.genre-select {
+  padding: 8px;
+  font-size: 16px;
+  display: none;
+  border: none; /* Remova a borda se desejar */
+  background-color: transparent; /* Fundo transparente */
+  color: #fff; /* Cor do texto */
+}
+
+.filter-rating {
+  /* Adicione estilos conforme necessário para a classificação, se necessário */
+}
+
+
+.filter-select:focus,
+.genre-select:focus {
+  outline: none;
+}
+
+
+/*FILTRO FIM*/
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <input type="text" class="search-input" placeholder="Pesquisar">
+    
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <div class="user-info">
+        <div class="user-image">
+          <img src="gg.jpg" alt="Imagem do Usuário">
+        </div>
+        <div class="user-name">Seu Nome</div>
+      </div>
+      <a href="inde.html">Início</a>
+      <a class="openDialog" onclick="toggleOpenDialogApp()">Pesquisar</a>
+      <a href="#">Gêneros</a>
+      <a href="#">Favoritos</a>
+    </nav>
+<!-- Adicione o contêiner de filtro abaixo do cabeçalho -->
+<div class="filter-container">
+  <select id="modeSelect" class="filter-select">
+    <option value="name">Buscar por Nome</option>
+    <option value="genre">Buscar por Gênero</option>
+  </select>
+
+  <select id="categorySelect" class="filter-select" style="display: none;">
+    <!-- Adicione mais categorias conforme necessário -->
+  </select>
+</div>
+
+
+  </header>
+
+  <div id="results" class="result-container"></div>
+
+  <!-- ... Seu código HTML existente ... -->
+
+  <script src="ccss/jjss/js.js"></script>
+  <!-- Adicione este script logo após o script existente -->
+
+<!-- Adicione os contêineres dos filtros abaixo do cabeçalho -->
+
+
+
+
+
+
+
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.querySelector('.search-input');
+      const resultsContainer = document.getElementById('results');
+      const modeSelect = document.getElementById('modeSelect');
+      const categorySelect = document.getElementById('categorySelect');
+
+      // Suponha que seu arquivo JSON de gêneros tenha o seguinte formato
+      const genresData = [
+        { "id": "todos", "name": "Todos" },
+        { "id": "acao", "name": "Ação" },
+        { "id": "aventura", "name": "Aventura" },
+        // Adicione mais gêneros conforme necessário
+      ];
+
+      // Adiciona os gêneros ao elemento categorySelect
+      genresData.forEach(genre => {
+        const option = document.createElement('option');
+        option.value = genre.id;
+        option.textContent = genre.name;
+        categorySelect.appendChild(option);
+      });
+
+      const jsonData = [
+        { 
+          "title": "Tokyo Ghoul", 
+          "genre": "Ação", 
+          "description": "",
+          "image": "https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/6c496691df13a15aaf9be63caa7fc429.jpe",
+          "ratingIcon": "https://upload.wikimedia.org/wikipedia/commons/0/01/Classind_A18.svg",
+          "banner": "https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/6c496691df13a15aaf9be63caa7fc429.jpe"
+        },
+        // Adicione mais itens conforme necessário
+      ];
+
+      searchInput.addEventListener('input', updateResults);
+      modeSelect.addEventListener('change', toggleCategorySelect);
+
+      function updateResults() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedMode = modeSelect.value.toLowerCase();
+        const selectedCategory = categorySelect.value.toLowerCase();
+
+        resultsContainer.innerHTML = '';
+
+        if (!searchTerm) {
+          return; // Se o campo de pesquisa estiver vazio, não mostra nenhum resultado
+        }
+
+        jsonData.forEach(data => {
+          const titleLowerCase = data.title.toLowerCase();
+
+          if (
+            (selectedMode === 'name' && titleLowerCase.includes(searchTerm)) ||
+            (selectedMode === 'genre' && (selectedCategory === 'todos' || selectedCategory === 'acao' || data.genre.toLowerCase() === selectedCategory))
+          ) {
+            createResultItem(data);
+          }
+        });
+      }
+
+      function createResultItem(data) {
+        const resultItem = document.createElement('div');
+        resultItem.classList.add('result-item');
+    
+        resultItem.innerHTML = `
+          <div class="result-image">
+            <img src="${data.image}" alt="${data.title}">
+            <div class="rating-icon" style="background-image: url(${data.ratingIcon});"></div>
+          </div>
+          <div class="banner-container">
+            <div class="overlay-image"></div>
+            <img class="result-banner" src="${data.banner}" alt="Banner">
+          </div>
+          <div class="result-content">
+            <h3 class="result-title">${data.title}</h3>
+            <p class="result-genre">${data.genre}</p>
+            <p>${data.description}</p>
+          </div>
+        `;
+    
+        resultsContainer.appendChild(resultItem);
+      }
+
+      function toggleCategorySelect() {
+        const selectedMode = modeSelect.value.toLowerCase();
+        categorySelect.style.display = selectedMode === 'genre' ? 'inline' : 'none';
+        updateResults();
+      }
+    });
+  </script>
+
+
+
+
+  
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #000000;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      height: 40px; /* Altura do header */
+    }
+
+    .logo img {
+      height: auto;
+      width: 130px; /* ajuste conforme necessário */
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      position: absolute; /* Alterado para absolute */
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      z-index: 2; /* Mantém abaixo do search-nav */
+    }
+
+    .menu-icon span {
+      display: block;
+      background-color: #fff;
+      height: 4px;
+      width: 100%;
+      margin-bottom: 6px;
+      transition: transform 0.3s, opacity 0.5s; /* Adicionado tempo de transição para a opacidade */
+    }
+
+    .menu-icon.open span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .menu-icon.open span:nth-child(2) {
+      visibility: hidden;
+    }
+
+    .menu-icon.open span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .search-nav {
+      display: flex;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      flex-direction: column;
+      align-items: center;
+      background-color: #000000;
+      height: 100vh;
+      width: 100vw;
+      visibility: hidden; /* Inicialmente invisível */
+      transition: opacity 0.5s; /* Adicionado tempo de transição para a opacidade */
+      z-index: 3; /* Mantém acima do nav padrão */
+    }
+
+    .search-nav.show {
+      visibility: visible;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px;
+      text-align: right;
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #000;
+      color: #fff;
+      z-index: 4;
+      display: none;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #555;
+      position: relative; /* Para posicionar a classificação e ícone sobre a capa */
+    }
+
+    .result-item img {
+      width: 240px;
+      height: 140px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .result-details {
+      flex-grow: 1;
+    }
+
+    .result-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .result-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para destacar a classificação */
+      padding: 5px;
+    }
+
+    .rating-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 5px;
+      /* Adicione estilos para o ícone de classificação */
+    }
+
+    .result-genre {
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .result-synopsis {
+      font-size: 14px;
+    }
+
+    /* Adicione estilos específicos para os elementos de classificação, nota, nome, gêneros e sinopse */
+
+    /* (Estilos CSS existentes) */
+ 
+
+            
+          
+    /**/
+
+    .search-input {
+      width: calc(100% - 30px);
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 2px solid #fff;
+      background-color: transparent;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .search-input::placeholder {
+      color: #fff;
+      opacity: 0.5;
+    }
+
+    .search-input:not(:placeholder-shown) {
+      color: #ddd; /* Substitua "yourDesiredColor" pela cor desejada quando houver texto */
+    }
+
+    .search-input:focus {
+      outline: none; /* Remove a borda padrão ao clicar no input */
+    }
+
+    /* Adicione esta regra para remover a borda amarela no Chrome */
+    .search-input:-webkit-autofill,
+    .search-input:-webkit-autofill:hover,
+    .search-input:-webkit-autofill:focus,
+    .search-input:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px transparent inset !important;
+    }
+
+    .close-search {
+      font-size: 24px;
+      margin-left: 10px;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      flex-direction: column;
+      align-items: center;
+      background-color: #000000;
+      height: 100vh;
+      width: 100vw;
+      visibility: hidden; /* Inicialmente invisível */
+      transition: opacity 0.5s; /* Adicionado tempo de transição para a opacidade */
+    }
+
+    nav.show {
+      visibility: visible;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px; /* Ajuste a margem para cima */
+    }
+
+    .user-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .user-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-name {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #000000;
+    }
+
+    @media(max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      nav.show, .search-nav.show {
+        visibility: visible;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="search-nav">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar">
+        <div class="close-search" onclick="toggleSearchNav()">✕</div>
+      </div>
+      <div class="search-results">
+        <!-- Lista de resultados de busca será adicionada aqui -->
+      </div>
+    </div>
+    <div class="logo">
+      <!-- Coloque aqui o código da sua logo -->
+      <img src="logo.png" alt="Logo">
+    </div>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <div class="user-info">
+        <div class="user-image">
+          <!-- Coloque aqui o código da sua imagem -->
+          <img src="gg.jpg" alt="Imagem do Usuário">
+        </div>
+        <div class="user-name">Seu Nome</div>
+      </div>
+      <a href="#">Início</a>
+      <a onclick="toggleSearchNav()">Pesquisar</a>
+      <a href="#">Gêneros</a>
+      <a href="#">Favoritos</a>
+    </nav>
+  </header>
+
+  <script>
+
+      
+      
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.querySelector('.search-input');
+      const searchResults = document.querySelector('.search-results');
+
+      searchInput.addEventListener('input', function () {
+        const inputValue = this.value.trim().toLowerCase();
+
+        const resultsJson = [
+          {
+            poster: 'gg.jpg',
+            title: 'Nome do Filme 1',
+            class: 'Ação',
+            rating: 4.5,
+            synopsis: 'Sinopse do Filme 1'
+          },
+          {
+            poster: 'path/to/poster2.jpg',
+            title: 'Nome do Filme 2',
+            class: 'Comédia',
+            rating: 3.8,
+            synopsis: 'Sinopse do Filme 2'
+          }
+          // Adicione mais itens conforme necessário
+        ];
+
+        const filteredResults = resultsJson.filter(result =>
+          result.title.toLowerCase().includes(inputValue)
+        );
+
+        searchResults.innerHTML = '';
+
+        if (filteredResults.length > 0) {
+          filteredResults.forEach(result => {
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('result-item');
+
+            // Adicione informações do JSON aos elementos HTML
+            const posterImg = document.createElement('img');
+            posterImg.src = result.poster;
+            resultItem.appendChild(posterImg);
+
+            // Adicione a classificação e ícone sobrepondo a capa
+            const resultRating = document.createElement('div');
+            resultRating.classList.add('result-rating');
+
+            const ratingIcon = document.createElement('div');
+            ratingIcon.classList.add('rating-icon');
+            // Adicione ícone de classificação aqui
+
+            const ratingValue = document.createElement('div');
+            ratingValue.textContent = result.rating;
+            resultRating.appendChild(ratingIcon);
+            resultRating.appendChild(ratingValue);
+
+            resultItem.appendChild(resultRating);
+
+            const resultDetails = document.createElement('div');
+            resultDetails.classList.add('result-details');
+
+            const resultTitle = document.createElement('div');
+            resultTitle.classList.add('result-title');
+            resultTitle.textContent = result.title;
+            resultDetails.appendChild(resultTitle);
+
+            const resultGenre = document.createElement('div');
+            resultGenre.classList.add('result-genre');
+            resultGenre.textContent = result.class;
+            resultDetails.appendChild(resultGenre);
+
+            const resultSynopsis = document.createElement('div');
+            resultSynopsis.classList.add('result-synopsis');
+            resultSynopsis.textContent = result.synopsis;
+            resultDetails.appendChild(resultSynopsis);
+
+            resultItem.appendChild(resultDetails);
+            searchResults.appendChild(resultItem);
+          });
+
+          searchResults.style.display = 'block';
+        } else {
+          searchResults.innerHTML = '<div style="padding: 10px;">Nenhum resultado encontrado</div>';
+          searchResults.style.display = 'block';
+        }
+      });
+    });
+
+    
+
+        
+    function toggleMenu() {
+      const nav = document.querySelector('nav');
+      const menuIcon = document.querySelector('.menu-icon');
+      nav.classList.toggle('show');
+      menuIcon.classList.toggle('open');
+    }
+
+    function toggleSearchNav() {
+      const searchNav = document.querySelector('.search-nav');
+      searchNav.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

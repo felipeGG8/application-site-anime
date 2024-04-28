@@ -247,26 +247,15 @@
     margin: 2px;
     text-align: center;
     position: relative;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
-.anime-item img { /* Capa */
+.anime-item img {
     width: 134px;
     height: 185px;
     object-fit: cover;
     transition: 1s;
-    border-radius: 5px;   
-}
-
-/*IMPORT FORNTE*/
-@font-face {
-    font-family: 'FontAwersome';
-    src: url('fonts/fontawesome-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'madeinfinity';
-    src: url('fonts/MADEINFINITYPersonalUse-Regular.woff') format('woff');
+    border-radius: 5px;
 }
 
 .anime-info {
@@ -278,8 +267,9 @@
 
 .anime-container {
     display: flex;
-    white-space: nowrap; /* Impede quebrar linha */
+    white-space: nowrap;
 }
+
 
 
 .tendence-list {

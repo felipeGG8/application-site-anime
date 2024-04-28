@@ -66,21 +66,13 @@
           }
         }
         /*< PRE LOADER >*/
-        
 /*HEADER MAIS MENU*/
-
         body {
-            margin: 0; /* Ajustado para eliminar a margem padrão do corpo */
-            top: 40px;
+            margin: 0;
             padding: 0;
             background: #0c0c0c;
             overflow-x: auto;
         }
-
-
-        
-
-
         header {
             background-color: #000000;
             color: #fff;

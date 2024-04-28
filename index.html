@@ -54,7 +54,7 @@
         }
 
         .user-info span {
-            color: rgb(17, 17, 17);
+            color: rgb(241, 241, 241);
             padding-left: 5px;
             padding-right: 5px;
         }
@@ -80,16 +80,63 @@
             
         }
 
+        /* Estilos para o spinner */
+        .spinner-icon {
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .spinner-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            transition: transform 0.3s ease-in-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .spinner-icon:hover svg {
+            transform: rotate(180deg);
+        }
+
+        /* Estilo para o dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Posição abaixo do botão */
+            left: 0;
+            right: 0;
+            background-color: #252525;
+            border: 4px solid transparent;
+            border-radius: 15px;
+            display: none; /* Inicialmente oculto */
+            z-index: 1000; /* Z-index acima do cabeçalho */
+        }
+
+        .dropdown-menu a {
+            display: block;
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #17a2b8;
+        }
+
         /* Estilos para o slider */
         .carousel-item img {
             width: 100%;
-            height: 300px;
+            height: 350px;
             object-fit: cover;
         }
 
         .carousel-indicators {
             position: absolute;
-            bottom: 10px;
+            bottom: 5px; /* Ajuste a distância dos dots em relação ao fundo */
             left: 0;
             right: 0;
             margin: auto; /* Centralizar horizontalmente */
@@ -100,8 +147,8 @@
 
         /* Estilos para os dots */
         .carousel-indicators li {
-            width: 10px;
-            height: 10px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background-color: #fff;
             margin-right: 5px;
@@ -109,8 +156,8 @@
         }
 
         .carousel-indicators .active {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             background-color: #17a2b8; /* Cor ativa */
         }
 
@@ -139,16 +186,33 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 300px; /* Altura igual à do slider */
+            height: 350px; /* Altura igual à do slider */
             object-fit: cover;
             z-index: 0; /* Z-index abaixo do slider */
             opacity: 0.5; /* Opacidade para criar o efeito de sombra */
         }
 
-        .left-section {
-font-size: 15px;
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: left;
+            color: #fff;
+            z-index: 1; /* Z-index acima do slider */
+            padding: 10px;
+            box-sizing: border-box;
         }
 
+        .carousel-caption h3,
+        .carousel-caption p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .left-section {
+            font-size: 15px;
+        }
     
     </style>
 </head>
@@ -159,15 +223,35 @@ font-size: 15px;
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://e1.pxfuel.com/desktop-wallpaper/807/182/desktop-wallpaper-discord-anime-pc-anime-banner.jpg" class="d-block w-100" alt="Slide 1">
+                <div class="carousel-caption">
+                    <h3>Título do Filme</h3>
+                    <p>Aventura</p>
+                    <p>Sinopse: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
             </div>
             <div class="carousel-item">
                 <img src="https://wallpapercave.com/wp/wp8929189.jpg" class="d-block w-100" alt="Slide 2">
+                <div class="carousel-caption">
+                    <h3>Título do Filme</h3>
+                    <p>Comédia</p>
+                    <p>Sinopse: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
             </div>
             <div class="carousel-item">
                 <img src="user-icon.jpg" class="d-block w-100" alt="Slide 3">
+                <div class="carousel-caption">
+                    <h3>Título do Filme</h3>
+                    <p>Ação</p>
+                    <p>Sinopse: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
             </div>
             <div class="carousel-item">
                 <img src="https://wallpapercave.com/wp/wp8929189.jpg" class="d-block w-100" alt="Slide 4">
+                <div class="carousel-caption">
+                    <h3>Título do Filme</h3>
+                    <p>Drama</p>
+                    <p>Sinopse: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
             </div>
         </div>
         <!-- Botões de navegação -->
@@ -202,6 +286,16 @@ font-size: 15px;
             <div class="user-info">
                 <img src="user-icon.jpg" alt="User Icon">
                 <span>User Name</span>
+                <!-- Ícone de abrir dropdown -->
+                <div class="spinner-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                </div>
+                <!-- Dropdown menu -->
+                <div class="dropdown-menu">
+                    <a href="#">Opção 1</a>
+                    <a href="#">Opção 2</a>
+                    <a href="#">Opção 3</a>
+                </div>
             </div>
         </div>
     </header>
@@ -210,6 +304,17 @@ font-size: 15px;
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Adicionar funcionalidade de dropdown
+        document.addEventListener('DOMContentLoaded', function () {
+            const spinnerIcon = document.querySelector('.spinner-icon');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            spinnerIcon.addEventListener('click', function () {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
 </body>
 
 </html>

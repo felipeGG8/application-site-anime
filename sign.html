@@ -7,7 +7,7 @@
 <!-- Estilos CSS -->
 <style>
     body {
-        background-color: #208776;
+        background-color: #202020;
         color: #ffffff;
         font-family: Arial, sans-serif;
         display: flex;
@@ -54,27 +54,47 @@
     <div id="login-error"></div>
 </div>
 <!-- Adicione o script do Firebase e o script de inicialização -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
-  
-  // Configurações do Firebase
-  const firebaseConfig = {
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script>
+// Configurações do Firebase
+const firebaseConfig = {
   apiKey: "AIzaSyCkNPnRVpxAvMBBoqWUlTA5aIofG2HWvss",
   authDomain: "animaalley-tv.firebaseapp.com",
-  databaseURL: "https://animaalley-tv-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "animaalley-tv",
   storageBucket: "animaalley-tv.appspot.com",
   messagingSenderId: "441876450757",
   appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
   measurementId: "G-BCH5BV87FN"
 };
-  
-  // Inicialize o Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  
-  // Configurar persistência de sessão, adicionar evento de clique ao botão de login, etc.
+
+// Inicialize o Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Adicione um evento de clique ao botão de login
+document.getElementById('login-button').addEventListener('click', function() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider)
+    .catch((error) => {
+        // Ocorreu um erro durante o login
+        document.getElementById('login-error').textContent = error.message;
+    });
+});
+
+// Verificar se houve redirecionamento após o login
+firebase.auth().getRedirectResult()
+.then((result) => {
+    if (result.credential) {
+        // O usuário fez login com sucesso
+        const credential = result.credential;
+        const token = credential.accessToken;
+        // Redirecionar para a página de sucesso ou fazer outras operações após o login
+    }
+})
+.catch((error) => {
+    // Ocorreu um erro durante o redirecionamento após o login
+    document.getElementById('login-error').textContent = error.message;
+});
 </script>
 </body>
 </html>

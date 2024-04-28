@@ -56,6 +56,7 @@ function populateAnimeList(animes) {
 
 
 
+
 /*LISTA RECÉM ADICIONADOS*/
 function realeseAnimeList(animes) {
     var animeList = document.querySelector('.realese-anime-list'); // Altere o seletor conforme necessário

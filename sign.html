@@ -75,16 +75,26 @@ firebase.initializeApp(firebaseConfig);
 // Adicione um evento de clique ao botão de login
 document.getElementById('login-button').addEventListener('click', function() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-    .then((result) => {
-        // O usuário fez login com sucesso
-        console.log(result.user);
-        // Redirecionar para a página de sucesso ou fazer outras operações após o login
-    })
+    firebase.auth().signInWithRedirect(provider)
     .catch((error) => {
         // Ocorreu um erro durante o login
         document.getElementById('login-error').textContent = error.message;
     });
+});
+
+// Verificar se houve redirecionamento após o login
+firebase.auth().getRedirectResult()
+.then((result) => {
+    if (result.credential) {
+        // O usuário fez login com sucesso
+        const credential = result.credential;
+        const token = credential.accessToken;
+        // Redirecionar para a página de sucesso ou fazer outras operações após o login
+    }
+})
+.catch((error) => {
+    // Ocorreu um erro durante o redirecionamento após o login
+    document.getElementById('login-error').textContent = error.message;
 });
 </script>
 </body>

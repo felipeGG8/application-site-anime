@@ -14,7 +14,6 @@ window.addEventListener('load', function () {
 
         
 
-/*LISTA LANÇAMENTOS*/
 function populateAnimeList(animes) {
     var animeList = document.querySelector('.anime-list');
 
@@ -30,21 +29,6 @@ function populateAnimeList(animes) {
             img.addEventListener('load', function() {
                 img.classList.add('loaded');
             });
-
-            var ratingAndNote = document.createElement('div');
-            ratingAndNote.className = 'rating-and-note';
-
-            var ratingIcon = document.createElement('img');
-            ratingIcon.className = 'rating-icon';
-            ratingIcon.src = anime['rating'];
-            ratingIcon.alt = 'Classificação ' + anime['rating'];
-
-            var note = document.createElement('span');
-            note.className = 'note';
-            note.textContent = anime['note'];
-
-            ratingAndNote.appendChild(ratingIcon);
-            ratingAndNote.appendChild(note);
 
             var animeInfo = document.createElement('div');
             animeInfo.className = 'anime-info';
@@ -64,7 +48,6 @@ function populateAnimeList(animes) {
             });
 
             itemLink.appendChild(img);
-            itemLink.appendChild(ratingAndNote);
             itemLink.appendChild(animeInfo);
 
             listItem.appendChild(itemLink);
@@ -73,6 +56,7 @@ function populateAnimeList(animes) {
         }
     });
 }
+
 
 /*LISTA RECÉM ADICIONADOS*/
 function realeseAnimeList(animes) {

@@ -18,17 +18,14 @@ function populateAnimeList(animes) {
     var animeList = document.querySelector('.anime-list');
 
     animes.forEach(function(anime) {
-        // Certifique-se de que 'id' está presente no objeto 'anime'
-        if ('id' in anime) {
+        // Certifique-se de que 'id' e 'name' estão presentes no objeto 'anime'
+        if ('id' in anime && 'name' in anime) {
             var listItem = document.createElement('li');
             listItem.className = 'anime-item';
 
             var img = document.createElement('img');
             img.src = anime['poster'];
             img.alt = anime['name'];
-            img.addEventListener('load', function() {
-                img.classList.add('loaded');
-            });
 
             var animeInfo = document.createElement('div');
             animeInfo.className = 'anime-info';
@@ -56,6 +53,7 @@ function populateAnimeList(animes) {
         }
     });
 }
+
 
 
 /*LISTA RECÉM ADICIONADOS*/

@@ -7,7 +7,7 @@
 <!-- Estilos CSS -->
 <style>
     body {
-        background-color: #203098;
+        background-color: #202020;
         color: #ffffff;
         font-family: Arial, sans-serif;
         display: flex;
@@ -67,7 +67,9 @@ const firebaseConfig = {
   messagingSenderId: "441876450757",
   appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
   measurementId: "G-BCH5BV87FN"
+  clientId: "441876450757-aogubt4qkkn934ffv480qcu1o6hqdqja.apps.googleusercontent.com" // Adicione o ID do cliente da Web aqui
 };
+
 // Inicialize o Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -78,6 +80,10 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
     // Adicione o evento de clique ao botão de login
     document.getElementById('login-button').addEventListener('click', function() {
         const provider = new firebase.auth.GoogleAuthProvider();
+        // Definir o ID do cliente da Web
+        provider.setCustomParameters({
+            client_id: firebaseConfig.clientId
+        });
         firebase.auth().signInWithRedirect(provider)
         .catch((error) => {
             // Ocorreu um erro durante o login

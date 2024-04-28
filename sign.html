@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login com Firebase</title>
+<!-- Estilos CSS -->
+<style>
+    body {
+        background-color: #202020;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #login-container {
+        text-align: center;
+    }
+
+    #login-container h1 {
+        margin-bottom: 20px;
+    }
+
+    #login-container p {
+        margin-bottom: 30px;
+    }
+
+    #login-button {
+        background-color: #4285F4;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #login-button:hover {
+        background-color: #3367D6;
+    }
+</style>
+</head>
+<body>
+<div id="login-container">
+    <img src="caminho_para_sua_logo" alt="Logo da sua aplicação" width="150">
+    <h1>Login com Firebase</h1>
+    <p>Faça login para acessar a aplicação.</p>
+    <!-- Botão de login com Google -->
+    <button id="login-button">Login com Google</button>
+    <!-- Div para mostrar mensagens de erro -->
+    <div id="login-error"></div>
+</div>
+<!-- Adicione o SDK do Firebase e o script de inicialização -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script>
+// Configurações do Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCkNPnRVpxAvMBBoqWUlTA5aIofG2HWvss",
+  authDomain: "animaalley-tv.firebaseapp.com",
+  databaseURL: "https://animaalley-tv-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "animaalley-tv",
+  storageBucket: "animaalley-tv.appspot.com",
+  messagingSenderId: "441876450757",
+  appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
+  measurementId: "G-BCH5BV87FN"
+};
+
+// Inicialize o Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Adicione um evento de clique ao botão de login
+document.getElementById('login-button').addEventListener('click', function() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+        // O usuário fez login com sucesso
+        console.log(result.user);
+        // Redirecionar para a página de sucesso ou fazer outras operações após o login
+    })
+    .catch((error) => {
+        // Ocorreu um erro durante o login
+        document.getElementById('login-error').textContent = error.message;
+    });
+});
+</script>
+</body>
+</html>

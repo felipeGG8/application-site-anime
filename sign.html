@@ -53,12 +53,13 @@
     <!-- Div para mostrar mensagens de erro -->
     <div id="login-error"></div>
 </div>
-<!-- Adicione o SDK do Firebase e o script de inicialização -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script>
-// Configurações do Firebase
-const firebaseConfig = {
+<!-- Adicione o script do Firebase e o script de inicialização -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+  
+  // Configurações do Firebase
+  const firebaseConfig = {
   apiKey: "AIzaSyCkNPnRVpxAvMBBoqWUlTA5aIofG2HWvss",
   authDomain: "animaalley-tv.firebaseapp.com",
   databaseURL: "https://animaalley-tv-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -66,51 +67,14 @@ const firebaseConfig = {
   storageBucket: "animaalley-tv.appspot.com",
   messagingSenderId: "441876450757",
   appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
-  measurementId: "G-BCH5BV87FN",
-  clientId: "441876450757-aogubt4qkkn934ffv480qcu1o6hqdqja.apps.googleusercontent.com" // Adicione o ID do cliente da Web aqui
+  measurementId: "G-BCH5BV87FN"
 };
-
-// Inicialize o Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Configurar persistência de sessão
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-  .then(() => {
-    // A persistência de sessão foi ativada com sucesso
-    console.log('Persistência de sessão ativada.');
-    // Adicione o evento de clique ao botão de login
-    document.getElementById('login-button').addEventListener('click', function() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        // Definir o ID do cliente da Web
-        provider.setCustomParameters({
-            client_id: firebaseConfig.clientId
-        });
-        firebase.auth().signInWithRedirect(provider)
-        .catch((error) => {
-            // Ocorreu um erro durante o login
-            document.getElementById('login-error').textContent = error.message;
-        });
-    });
-
-    // Verificar se houve redirecionamento após o login
-    firebase.auth().getRedirectResult()
-    .then((result) => {
-        if (result.credential) {
-            // O usuário fez login com sucesso
-            const credential = result.credential;
-            const token = credential.accessToken;
-            // Redirecionar para a página de sucesso ou fazer outras operações após o login
-        }
-    })
-    .catch((error) => {
-        // Ocorreu um erro durante o redirecionamento após o login
-        document.getElementById('login-error').textContent = error.message;
-    });
-  })
-  .catch((error) => {
-    // Ocorreu um erro ao configurar a persistência de sessão
-    console.log('Erro ao configurar a persistência de sessão:', error);
-  });
+  
+  // Inicialize o Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  
+  // Configurar persistência de sessão, adicionar evento de clique ao botão de login, etc.
 </script>
 </body>
 </html>

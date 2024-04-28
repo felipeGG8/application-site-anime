@@ -18,8 +18,8 @@ function populateAnimeList(animes) {
     var animeList = document.querySelector('.anime-list');
 
     animes.forEach(function(anime) {
-        // Certifique-se de que 'id' e 'name' estão presentes no objeto 'anime'
-        if ('id' in anime && 'name' in anime) {
+        // Certifique-se de que 'name' e 'poster' estão presentes no objeto 'anime'
+        if ('name' in anime && 'poster' in anime && 'id' in anime) {
             var listItem = document.createElement('li');
             listItem.className = 'anime-item';
 
@@ -39,7 +39,7 @@ function populateAnimeList(animes) {
             itemLink.addEventListener('click', function() {
                 // Obtém o id do atributo data-anime-id
                 var animeId = this.getAttribute('data-anime-id');
-
+                
                 // Chame a função da interface WebView para abrir a tela no Android
                 window.webViewAndroid.openScreen(animeId);
             });
@@ -53,6 +53,7 @@ function populateAnimeList(animes) {
         }
     });
 }
+
 
 
 

@@ -66,7 +66,7 @@ const firebaseConfig = {
   storageBucket: "animaalley-tv.appspot.com",
   messagingSenderId: "441876450757",
   appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
-  measurementId: "G-BCH5BV87FN"
+  measurementId: "G-BCH5BV87FN",
   clientId: "441876450757-aogubt4qkkn934ffv480qcu1o6hqdqja.apps.googleusercontent.com" // Adicione o ID do cliente da Web aqui
 };
 
@@ -77,6 +77,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   .then(() => {
     // A persistência de sessão foi ativada com sucesso
+    console.log('Persistência de sessão ativada.');
     // Adicione o evento de clique ao botão de login
     document.getElementById('login-button').addEventListener('click', function() {
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -108,7 +109,7 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   })
   .catch((error) => {
     // Ocorreu um erro ao configurar a persistência de sessão
-    console.log(error);
+    console.log('Erro ao configurar a persistência de sessão:', error);
   });
 </script>
 </body>

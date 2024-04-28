@@ -68,34 +68,42 @@ const firebaseConfig = {
   appId: "1:441876450757:web:23f14baf5c10ecc46acfac",
   measurementId: "G-BCH5BV87FN"
 };
-
 // Inicialize o Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Adicione um evento de clique ao botão de login
-document.getElementById('login-button').addEventListener('click', function() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider)
+// Configurar persistência de sessão
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(() => {
+    // A persistência de sessão foi ativada com sucesso
+    // Adicione o evento de clique ao botão de login
+    document.getElementById('login-button').addEventListener('click', function() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider)
+        .catch((error) => {
+            // Ocorreu um erro durante o login
+            document.getElementById('login-error').textContent = error.message;
+        });
+    });
+
+    // Verificar se houve redirecionamento após o login
+    firebase.auth().getRedirectResult()
+    .then((result) => {
+        if (result.credential) {
+            // O usuário fez login com sucesso
+            const credential = result.credential;
+            const token = credential.accessToken;
+            // Redirecionar para a página de sucesso ou fazer outras operações após o login
+        }
+    })
     .catch((error) => {
-        // Ocorreu um erro durante o login
+        // Ocorreu um erro durante o redirecionamento após o login
         document.getElementById('login-error').textContent = error.message;
     });
-});
-
-// Verificar se houve redirecionamento após o login
-firebase.auth().getRedirectResult()
-.then((result) => {
-    if (result.credential) {
-        // O usuário fez login com sucesso
-        const credential = result.credential;
-        const token = credential.accessToken;
-        // Redirecionar para a página de sucesso ou fazer outras operações após o login
-    }
-})
-.catch((error) => {
-    // Ocorreu um erro durante o redirecionamento após o login
-    document.getElementById('login-error').textContent = error.message;
-});
+  })
+  .catch((error) => {
+    // Ocorreu um erro ao configurar a persistência de sessão
+    console.log(error);
+  });
 </script>
 </body>
 </html>
